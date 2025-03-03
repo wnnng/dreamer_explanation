@@ -21,7 +21,13 @@ Evaluation script:
 python evaluation.py 
 ```
 
-# Disclaimer
+# About This Fork
+This project is a fork of [Original Repository][repo] by Danijar Hafner.
+It includes modifications by Nils Wenninghoff to implement additional reporting functionality and introduce new explanation feature.
+The original project is licensed under MIT, and this fork continues under the same license.
 
-This repository is a modification and extension of DreamerV3 based on the open
-source DreamerV3 code base.
+
+
+[jax]: https://github.com/google/jax#pip-installation-gpu-cuda
+[paper]: https://arxiv.org/pdf/2301.04104v1.pdf
+[repo]: https://github.com/danijar/dreamerv3
