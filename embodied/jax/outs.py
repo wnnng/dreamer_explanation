@@ -219,6 +219,9 @@ class Categorical(Output):
   def pred(self):
     return jnp.argmax(self.logits, -1)
 
+  def probs(self):
+    return jax.nn.softmax(self.logits, axis=-1)
+
   def sample(self, seed, shape=()):
     return jax.random.categorical(
         seed, self.logits, -1, shape + self.logits.shape[:-1])

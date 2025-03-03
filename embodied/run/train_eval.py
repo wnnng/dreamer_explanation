@@ -39,6 +39,7 @@ def train_eval(
   should_log = elements.when.Clock(args.log_every)
   should_report = elements.when.Clock(args.report_every)
   should_save = elements.when.Clock(args.save_every)
+  should_checkpoint = elements.when.Clock(args.eval_checkpoint_every)
 
   @elements.timer.section('logfn')
   def logfn(tran, worker, mode):
@@ -129,7 +130,7 @@ def train_eval(
   while step < args.steps:
 
     if should_report(step):
-      print('Evaluation')
+      print('evaluation')
       driver_eval.reset(agent.init_policy)
       driver_eval(eval_policy, episodes=args.eval_eps)
       logger.add(eval_epstats.result(), prefix='epstats')
@@ -154,5 +155,8 @@ def train_eval(
 
     if should_save(step):
       cp.save()
+
+    if should_checkpoint(step):
+      cp.save(f"{logdir}/eval_ckpt/{step.save()}/cp")
 
   logger.close()

@@ -35,6 +35,8 @@ defaults:
     minecraft: {size: [64, 64], break_speed: 100.0, logs: False, length: 36000}
     dmc: {size: [64, 64], repeat: 1, proprio: True, image: True, camera: -1}
     loconav: {size: [64, 64], repeat: 1, camera: -1}
+    minigrid: {size: [64, 64], fully_observable: False, hide_mission: True, seed: 14232, use_seed: True}
+    highway: {}
 
   replay:
     size: 5e6
@@ -51,8 +53,9 @@ defaults:
     train_ratio: 32.0
     log_every: 120
     report_every: 300
-    save_every: 900
-    envs: 16
+    save_every: 300
+    eval_checkpoint_every: 600
+    envs: 4
     eval_envs: 4
     eval_eps: 1
     report_batches: 1
@@ -161,14 +164,14 @@ dmlab:
 
 atari:
   task: atari_pong
-  run: {steps: 5.1e7, train_ratio: 32}
+  run: {steps: 5.1e7,envs: 8, train_ratio: 32}
 
 procgen:
   task: procgen_coinrun
-  run: {steps: 1.1e8, train_ratio: 64}
+  run: {steps: 8e5, train_ratio: 64}
 
 atari100k:
-  task: atari100k_pong
+  task: atari_pong
   run: {steps: 1.1e5, envs: 1, train_ratio: 256}
 
 crafter:
@@ -194,6 +197,14 @@ loconav:
   task: loconav_ant_maze_m
   env.loconav.repeat: 1
   run.train_ratio: 256
+
+minigrid:
+  task: minigrid_SimpleCrossingS9N1
+  run: {steps: 8e5, train_ratio: 64}
+
+highway:
+  task: highway_intersection-v0
+  run: {steps: 8e6, train_ratio: 256}
 
 multicpu:
   batch_size: 12

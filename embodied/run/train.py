@@ -26,6 +26,7 @@ def train(make_agent, make_replay, make_env, make_stream, make_logger, args):
   should_log = embodied.LocalClock(args.log_every)
   should_report = embodied.LocalClock(args.report_every)
   should_save = embodied.LocalClock(args.save_every)
+  should_checkpoint = embodied.LocalClock(args.eval_checkpoint_every)
 
   @elements.timer.section('logfn')
   def logfn(tran, worker):
@@ -80,7 +81,7 @@ def train(make_agent, make_replay, make_env, make_stream, make_logger, args):
       train_agg.add(mets, prefix='train')
   driver.on_step(trainfn)
 
-  cp = elements.Checkpoint(logdir / 'ckpt')
+  cp = elements.Checkpoint(logdir / 'ckpt', keep=5)
   cp.step = step
   cp.agent = agent
   cp.replay = replay
@@ -115,5 +116,8 @@ def train(make_agent, make_replay, make_env, make_stream, make_logger, args):
 
     if should_save(step):
       cp.save()
+
+    if should_checkpoint(step):
+      cp.save(f"{logdir}/eval_ckpt/{step.save()}/cp")
 
   logger.close()
