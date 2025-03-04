@@ -36,7 +36,6 @@ defaults:
     dmc: {size: [64, 64], repeat: 1, proprio: True, image: True, camera: -1}
     loconav: {size: [64, 64], repeat: 1, camera: -1}
     minigrid: {size: [64, 64], fully_observable: False, hide_mission: True, seed: 14232, use_seed: True}
-    highway: {}
 
   replay:
     size: 5e6
@@ -70,7 +69,7 @@ defaults:
     remote_replay: False
     remote_envs: False
     usage: {psutil: True, nvsmi: True, gputil: False, malloc: False, gc: False}
-    debug: True
+    debug: False
 
   jax:
     platform: cuda
@@ -200,11 +199,7 @@ loconav:
 
 minigrid:
   task: minigrid_SimpleCrossingS9N1
-  run: {steps: 8e5, train_ratio: 64}
-
-highway:
-  task: highway_intersection-v0
-  run: {steps: 8e6, train_ratio: 256}
+  run: {steps: 8e5, envs: 14, train_ratio: 64}
 
 multicpu:
   batch_size: 12
