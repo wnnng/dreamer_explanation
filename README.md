@@ -2,6 +2,9 @@
 
 An extended and slightly modified implementation of [DreamerV3][paper] with the goal to use the imaginations as an explanation.
 
+In case of LFS bandwith limitations there is a mirror at:
+https://gitlab.kit.edu/nils.wenninghoff/dreamer_explanation
+
 # Instructions
 
 Install [JAX][jax] and then the other dependencies:
